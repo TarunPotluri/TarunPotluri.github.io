@@ -38,32 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(element);
     });
 
-    // Form submission handling
-    const contactForm = document.getElementById('contact-form');
-    contactForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const formData = new FormData(contactForm);
-        
-        try {
-            const response = await fetch('/', {
-                method: 'POST',
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: new URLSearchParams(formData).toString()
-            });
-
-            if (response.ok) {
-                alert('Thank you for your message. I will get back to you soon!');
-                contactForm.reset();
-            } else {
-                throw new Error('Form submission failed');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('There was an error sending your message. Please try again.');
-        }
-    });
-
     // Dynamic year for copyright in footer
     const currentYear = new Date().getFullYear();
     document.querySelector('footer p').textContent = `© ${currentYear} Tarun Potluri. All rights reserved.`;
