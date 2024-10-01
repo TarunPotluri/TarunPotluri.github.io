@@ -44,24 +44,19 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         
         const formData = new FormData(contactForm);
-        const formObject = Object.fromEntries(formData.entries());
-
+        
         try {
-            const response = await fetch('http://127.0.0.1:5000/api/contact', {
+            const response = await fetch('/', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formObject),
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams(formData).toString()
             });
 
             if (response.ok) {
-                const result = await response.json();
-                alert(result.message);
+                alert('Thank you for your message. I will get back to you soon!');
                 contactForm.reset();
             } else {
-                const errorData = await response.json();
-                alert(`Error: ${errorData.error || 'Unknown error occurred'}`);
+                throw new Error('Form submission failed');
             }
         } catch (error) {
             console.error('Error:', error);
